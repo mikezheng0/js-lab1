@@ -16,7 +16,7 @@ td{vertical-align: bottom;
 <body>
 
 <h1><span>COMP10065	Javascript Lab 1: Letter Frequency Histogram</span></h1>
-<textarea rows="12" cols="50">The Quick Brown Fox Jumped Over the Lazy Dogs</textarea>
+<textarea id="txtbox" rows="12" cols="50">The Quick Brown Fox Jumped Over the Lazy Dogs</textarea>
 <br>
 <button onclick="generateChart()">HTML Chart</button>
 <button onclick="resetText()">Reset Test Data</button>
@@ -25,11 +25,14 @@ td{vertical-align: bottom;
 var arrayMap;
 
 function resetText(){
-	var textboxElement = document.getElementsByTagName("textarea")[0];
+	var textboxElement = document.getElementById("txtbox");
 	textboxElement.value = "The Quick Brown Fox Jumped Over the Lazy Dogs";
 }
+
+// generates the HTML chart by using a table using values from the arraymap 
 function generateChart(){	
 	checkTable = document.getElementById("tableGraph");
+	//if there is no table a table with 27 columns and 2 rows are created
 	if( checkTable == null){
 		var table = document.createElement("table");
 		table.id = "tableGraph";
@@ -51,30 +54,32 @@ function generateChart(){
 			}
 		table.appendChild(tr);
 		}
-		
 		document.body.appendChild(table);
-		
 	}
 	var tdLetter = document.getElementById("row1-pos0");
 	tdLetter.innerHTML = "Letter <br>Frequency<br> 100px";
 	updateChart();
 	var counter = 1;
+	
+	//table is updated with values from the arrayMap
 	for (var key in arrayMap) {
 		var tdLetter = document.getElementById("row2-pos"+counter);
 		var tdGraph = document.getElementById("row1-pos"+counter);
 		counter++;
 		tdLetter.innerHTML = key;// + "  = " + arrayMap[key]/currentMax*100
-		
-		tdGraph.innerHTML="<img src=\"./orange.gif\" alt=\"10\" width=\"2\" height=\""+arrayMap[key]+"\">";
+		tdGraph.innerHTML="<img src=\"./orange.gif\" alt=\""+arrayMap[key]+"\" title=\""+arrayMap[key]+"\"width=\"2\" height=\""+arrayMap[key]+"\">";
 		//document.body.appendChild(contentnode);
 	}  	
 }
+
+// updates the arrayMap associative array and populate it with values from 
 function updateChart(){
-arrayMap = {A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0,I:0,J:0,K:0,L:0,M:0,N:0,O:0,P:0,Q:0,R:0,S:0,T:0,U:0,V:0,W:0,X:0,Y:0,Z:0};
-var textAreaElement = document.getElementsByTagName("textarea")[0];
+	arrayMap = {A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0,I:0,J:0,K:0,L:0,M:0,N:0,O:0,P:0,Q:0,R:0,S:0,T:0,U:0,V:0,W:0,X:0,Y:0,Z:0};
+	var textAreaElement = document.getElementById("txtbox");
 	var testString = textAreaElement.value.toUpperCase();
 	var charArray = testString.split('');
 	
+	//counts the number of occurrences of each letter in the text area
 	var currentMax=0;
 	for(var i =0; i<charArray.length;i++)
 	{
@@ -85,16 +90,31 @@ var textAreaElement = document.getElementsByTagName("textarea")[0];
 				currentMax=arrayMap[charArray[i]];
 		}
 	}
+	
+	// normalize the values to 100 
 	for (var key in arrayMap) {
-		arrayMap[key] = (arrayMap[key]/currentMax*100)
+		arrayMap[key] =  Math.round(arrayMap[key]/currentMax*100)
 	}
 }
+
+// generates a histogram bar chart using the google bar chart API
 function imageChart(){
-	var image = document.createElement("img");
-	image.id = "googleChart";
-	var br = document.createElement("br");
-	image.src = "http://chart.apis.google.com/chart?cht=bvs&chd=t:"//25,25,25,50,100,30,34,3,44,556,56,67A|B|C|D|E|F|G|H|I|J|K|L|M|N|O";
+	var width = 800;
+	var length = 100;
+	var image = document.getElementById("googleChart");
+	
+	//checks if the chart already exists if it does it will create a new one
+	if(image == null){
+		image = document.createElement("img");
+		var br = document.createElement("br");
+		image.id = "googleChart";
+		document.body.appendChild(br);
+		document.body.appendChild(image);
+	}
+	image.src = "http://chart.apis.google.com/chart?cht=bvs&chd=t:";
 	updateChart();
+	
+	// builds the normalized values in the chart
 	for (var key in arrayMap)
 	{
 		if (!(key == 'A')){
@@ -102,7 +122,9 @@ function imageChart(){
 		}
 		image.src+=arrayMap[key];
 	}
-	image.src += "&chs=800x100&chl=";
+	image.src += "&chs="+width+"x"+length+"&chl=";
+	
+	// builds the x-Axis with letters of the alphabet 
 	for (var key in arrayMap)
 	{
 		if (!(key == 'A')){
@@ -111,16 +133,6 @@ function imageChart(){
 		image.src+=key;
 	}
 	image.src+="&chxt=y"
-	var checkImg = document.getElementById("googleChart");
-	if(checkImg == null){
-		document.body.appendChild(br);
-		document.body.appendChild(image);
-	}
-	else {
-		document.body.removeChild(checkImg);
-		document.body.appendChild(image);
-	}
-
 }
 </script>
 </body>
