@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<!--I, Mike Zheng, 000348657 certify that this material is my original work.
+No other person's work has been used without due acknowledgement. I have not 
+made my work available to anyone else.-->
+<style>
+table, tr, td{
+border:1px solid white;
+background-color:lightgrey;
+border-collapse:collapse;}
+td{vertical-align: bottom;
+	text-align:center;
+	padding:0px;
+	width:10px;}
+</style>
+<body>
+
+<h1><span>COMP10065	Javascript Lab 1: Letter Frequency Histogram</span></h1>
+<textarea rows="12" cols="50">The Quick Brown Fox Jumped Over the Lazy Dogs</textarea>
+<br>
+<button onclick="generateChart()">HTML Chart</button>
+<button onclick="resetText()">Reset Test Data</button>
+<button onclick="imageChart()">Image Chart</button>
+<script language="Javascript">
+var arrayMap;
+
+function resetText(){
+	var textboxElement = document.getElementsByTagName("textarea")[0];
+	textboxElement.value = "The Quick Brown Fox Jumped Over the Lazy Dogs";
+}
+function generateChart(){	
+	checkTable = document.getElementById("tableGraph");
+	if( checkTable == null){
+		var table = document.createElement("table");
+		table.id = "tableGraph";
+		for (var i = 0; i < 2; i++)
+		{
+			var tr = document.createElement("tr");
+			for(var j = 0; j < 27; j++)
+			{
+				var td = document.createElement("td");
+				if (i==0)
+				{
+					td.id = "row1-pos"+j;
+				}
+				else
+				{
+					td.id = "row2-pos"+j;
+				}
+				tr.appendChild(td);
+			}
+		table.appendChild(tr);
+		}
+		
+		document.body.appendChild(table);
+		
+	}
+	var tdLetter = document.getElementById("row1-pos0");
+	tdLetter.innerHTML = "Letter <br>Frequency<br> 100px";
+	updateChart();
+	var counter = 1;
+	for (var key in arrayMap) {
+		var tdLetter = document.getElementById("row2-pos"+counter);
+		var tdGraph = document.getElementById("row1-pos"+counter);
+		counter++;
+		tdLetter.innerHTML = key;// + "  = " + arrayMap[key]/currentMax*100
+		
+		tdGraph.innerHTML="<img src=\"./orange.gif\" alt=\"10\" width=\"2\" height=\""+arrayMap[key]+"\">";
+		//document.body.appendChild(contentnode);
+	}  	
+}
+function updateChart(){
+arrayMap = {A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0,I:0,J:0,K:0,L:0,M:0,N:0,O:0,P:0,Q:0,R:0,S:0,T:0,U:0,V:0,W:0,X:0,Y:0,Z:0};
+var textAreaElement = document.getElementsByTagName("textarea")[0];
+	var testString = textAreaElement.value.toUpperCase();
+	var charArray = testString.split('');
+	
+	var currentMax=0;
+	for(var i =0; i<charArray.length;i++)
+	{
+		if(charArray[i]in arrayMap)
+		{
+			arrayMap[charArray[i]]++;
+			if (arrayMap[charArray[i]]>currentMax)
+				currentMax=arrayMap[charArray[i]];
+		}
+	}
+	for (var key in arrayMap) {
+		arrayMap[key] = (arrayMap[key]/currentMax*100)
+	}
+}
+function imageChart(){
+	var image = document.createElement("img");
+	image.id = "googleChart";
+	var br = document.createElement("br");
+	image.src = "http://chart.apis.google.com/chart?cht=bvs&chd=t:"//25,25,25,50,100,30,34,3,44,556,56,67A|B|C|D|E|F|G|H|I|J|K|L|M|N|O";
+	updateChart();
+	for (var key in arrayMap)
+	{
+		if (!(key == 'A')){
+			image.src+=",";
+		}
+		image.src+=arrayMap[key];
+	}
+	image.src += "&chs=800x100&chl=";
+	for (var key in arrayMap)
+	{
+		if (!(key == 'A')){
+			image.src+="|";
+		}
+		image.src+=key;
+	}
+	image.src+="&chxt=y"
+	var checkImg = document.getElementById("googleChart");
+	if(checkImg == null){
+		document.body.appendChild(br);
+		document.body.appendChild(image);
+	}
+	else {
+		document.body.removeChild(checkImg);
+		document.body.appendChild(image);
+	}
+
+}
+</script>
+</body>
+</html>
