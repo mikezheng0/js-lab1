@@ -58,7 +58,7 @@ padding:10px;}
 <a href="./lab4.php?clearTextFile=true" class = "topbuttons">Clear logfile.txt</a>
 </header>
 
-<form action="" method = "POST">
+<form action="https://csunix.mohawkcollege.ca/tooltime/echo.php" onsubmit = "submitForm()">
 	<table>
 	<tr>
 		<td class = "row1">
@@ -117,9 +117,26 @@ padding:10px;}
 	</tr>
 	</table>
 	<br>
-	<input type="submit" value = "Submit me now!!!">
+	<input type="submit" value = "Submit!!!">
 
 </form>
+<script>
+submitForm(){
+	var errArray = "";
+	var fname = document.getElementsByName("fullname")[0].value;
+	var street = document.getElementsByName("street")[0].value;
+	var postalcode = document.getElementsByName("postalcode")[0].value;
+	var phone = document.getElementsByName("phone")[0].value;
+	var email = email.getElementsByName("email")[0].value;
+	alert(fullname);
 
+	if (errArray != ""){
+		
+	}
+	else{
+	
+	}
+}
+</script>
 </body>
 </html>
