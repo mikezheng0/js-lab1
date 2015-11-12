@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--I, Mike Zheng, 000348657 certify that this material is my original work.
+No other person's work has been used without due acknowledgement. I have not 
+made my work available to anyone else.-->
+<style>
+table {border-collapse:collapse;}
+table, tr, td {border:white 1px solid;}
+td	{margin:10px;
+	padding:5px;}
+td p {width:300px;
+	 margin:10px;}
+th	{background-color:green;
+	color:white;
+	padding:5px;}
+label{margin:10px;}
+input[type="text"]	{margin:10px;
+					border-color: white;
+					background-color:#E8E8E8 ;
+					line-height:50px;
+					padding-left:15px;
+					padding-right:15px;
+					border:white 5px solid;}
+.row1 {background-color:darkgreen;	
+	  color:white;}
+td:not(.row1){background-color:#B8B8B8;}
+form {margin-top:10px;}
+.error{color:red;}
+h1{color:green;}
+.topbuttons	{color:white;
+			background-color:green;
+			text-decoration:none;
+			padding:5px;}
+.topbuttons:hover	{color:grey;
+					background-color:darkgreen;}
+section{margin-top:10px;
+width:500px;
+padding:10px;}
+.errorMessage{
+	border: 1px solid grey;
+}
+.errorMessage h3{
+	color:red;
+}
+.acceptedMessage{
+	border: 1px solid green;
+	color:green;
+}
+</style> 
+</head>
+<body>
+<header>
+<h1>Form Validation with Reg Expressions and CSV</h1>
+<a href="./lab4.php" class = "topbuttons">Refresh This Page</a>
+<a href="./logfile.txt" class = "topbuttons">Show Logfile.txt</a>
+<a href="./lab4.php?showTable=true" class = "topbuttons">Show logfile.txt Formatted</a> <!--uses get method to show the table-->
+<a href="./lab4.php?clearTextFile=true" class = "topbuttons">Clear logfile.txt</a>
+</header>
+
+<form action="" method = "POST">
+	<table>
+	<tr>
+		<td class = "row1">
+			<label for="fullname">Full Name:</label>
+		</td>
+		<td>
+			<input type="text" name= "fullname" value="" size = 40> 
+		</td>
+		<td class="">
+			<p>Salutation of Mr. or Mrs. followed by two text strings separated by any number of spaces.</p>
+		</td>
+	</tr>
+	<tr>
+		<td class = "row1">
+			<label for="street">Street:</label>
+		</td>
+		<td>
+		<input type="text" name= "street"  value="" size = 40> 
+		</td>
+		<td class="">
+			<p>2 or 3 digit number followed by a text string ending with Street or Road separated by any number of spaces.</p>			
+		</td>
+	</tr>
+	<tr>
+		<td class = "row1">
+			<label for="postalcode">Postal Code:</label>
+		</td>
+		<td>
+			<input type="text" name= "postalcode" value="" size = 40> 
+		</td>
+		<td class="">
+		<p>Char Char Digit optional Hypen or space Char Digit Digit (abclyz and number 0 not allowed. Case insensitive.)</p>
+		</td>
+	</tr>
+	<tr>
+		<td class = "row1">
+			<label for="phone">Phone:</label>
+		</td>
+		<td>
+			<input type="text" name= "phone"  value="" size = 40> 
+		</td>
+		<td class="">
+			<p>10 Digits, first 3 digits have optional parentheses, either side of digits 456 are optional space, dot or hyphen.</p>
+		</td>
+	</tr>
+	<tr>
+		<td class = "row1">
+			<label for="email">Email:</label>
+		</td>
+		<td>
+			<input type="text" name= "email" value="" size = 40> 
+		</td>
+		<td class="">
+			<p>firstname.lastname@mohawkcollege.domain (firstname and lastname must be 4-10 characters in length, domain may be either .com, .ca or .org)</p>
+		</td>
+	</tr>
+	</table>
+	<br>
+	<input type="submit" value = "Submit me now!!!">
+
+</form>
+
+</body>
+</html>
