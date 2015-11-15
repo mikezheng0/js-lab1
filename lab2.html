@@ -28,7 +28,7 @@ td:not(.row1){background-color:#B8B8B8;}
 form {margin-top:10px;}
 .error{color:red;}
 h1{color:green;}
-
+#errorMessages li{color:red;}
 section{margin-top:10px;
 width:500px;
 padding:10px;}
@@ -130,7 +130,7 @@ function submitForm(){
 		errArray.push("Name format error Ex: Mr. John Smith");
 	}
 	
-	if(!street){
+	if(!street){	
 		errArray.push("Street is blank. Please fill it in.");
 	}
 	else if (!streetreg.test(street))
@@ -162,6 +162,7 @@ function submitForm(){
 		errArray.push("Email format error Ex: Mr. abc@abc.com");
 	}
 	var newOrderList = document.createElement("ol");
+	newOrderList.id = "errorMessages";
 	
 	if(!email && !phone && !postalcode && !street && !fname)
 	{
@@ -169,7 +170,15 @@ function submitForm(){
 		newListEle.className = "error";
 		newListEle.innerHTML = "Please fill in somthing. All fields are blank.";
 		newOrderList.appendChild(newListEle);
-		document.getElementById("header").appendChild(newOrderList);
+		var checkOl = document.getElementById("errorMessages");
+		if (checkOl == null){
+			document.getElementById("header").appendChild(newOrderList);
+		}
+		else {
+			document.getElementById("header").removeChild(checkOl);
+			document.getElementById("header").appendChild(newOrderList);
+		}
+		
 	}
 	else if (errArray.length > 0)
 	{
@@ -179,7 +188,14 @@ function submitForm(){
 			newListEle.innerHTML = errArray[i];
 			newOrderList.appendChild(newListEle);
 		}
-		document.getElementById("header").appendChild(newOrderList);
+		var checkOl = document.getElementById("errorMessages");
+		if (checkOl == null){
+			document.getElementById("header").appendChild(newOrderList);
+		}
+		else {
+			document.getElementById("header").removeChild(checkOl);
+			document.getElementById("header").appendChild(newOrderList);
+		}		
 	}
 	else{
 		document.getElementById("myForm").submit();
